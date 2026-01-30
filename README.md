@@ -1,98 +1,36 @@
-# Semantic Decision Tree (SDT) for Molecular Classification
+# Semantic Bagging Forest
 
-## Overview
-SMILES 기반 분자 구조를 화학 온톨로지로 변환하고, Semantic Decision Tree를 사용하여 Blood-Brain Barrier Penetration (BBBP) 예측을 수행합니다.
+SMILES 기반 분자 구조를 **Drug Target Ontology (DTO)** 기반 온톨로지로 변환한 뒤,
+여러 개의 설명가능한 결정트리를 **배깅(bootstrap aggregating)** 으로 학습해 분류 성능을 높이는 모델입니다.
 
-이 레포에는 아래 2가지 계열이 함께 들어 있습니다.
+단일 트리로 학습하는 버전은 별도 레포로 분리했습니다:
 
-- **Legacy SDT (feature 기반 단일 트리)**: RDKit 피처를 바로 사용
-- **Logic SDT (DTO/OWL 기반 단일 트리)** + **Semantic Random Forest (Logic SDT 배깅 앙상블)**
+- https://github.com/thkim-01/Semantic-Decision-Tree
 
-따라서 사용자가 목적에 맞게 **단일 트리(SDT)** 또는 **배깅된 앙상블(Semantic Random Forest)** 중 선택해서 실행할 수 있습니다.
+## 개발 환경
 
-## Project Structure
-```
-SDT/
-├── data/
-│   └── bbbp/
-│       └── BBBP.csv
-├── src/
-│   ├── ontology/
-│   │   ├── __init__.py
-│   │   ├── molecule_ontology.py    # 온톨로지 구축
-│   │   └── smiles_converter.py     # SMILES → 온톨로지 변환
-│   ├── sdt/
-│   │   ├── __init__.py
-│   │   ├── refinement.py           # Refinement 연산자
-│   │   ├── tree.py                 # SDT 구조
-│   │   └── learner.py              # SDT 학습 알고리즘
-│   └── utils/
-│       ├── __init__.py
-│       └── evaluation.py           # 평가 지표 (AUC-ROC)
-├── experiments/
-│   └── bbbp_experiment.py          # 메인 실행 스크립트
-├── output/
-│   └── (결과 저장 디렉토리)
-├── requirements.txt
-└── README.md
-```
+- OS: Windows (테스트 환경)
+- Python: 3.9+
+- 주요 의존성: `owlready2`, `rdkit`, `scikit-learn`, `pandas`, `numpy`
 
-## Installation
+## 설치
+
 ```bash
 pip install -r requirements.txt
 ```
 
-## How to run (사용자가 선택)
+## 실행 방법
 
-### A) Legacy SDT (feature 기반 단일 트리)
-
-여러 데이터셋을 feature 기반 SDT로 벤치마크하려면:
-
-```bash
-python experiments/benchmark_runner.py --dataset all
-```
-
-### B) Logic SDT (DTO/OWL 기반 단일 트리)
-
-BBBP 단일 실행(기본은 **dynamic**: 매번 refinement 생성):
-
-```bash
-python verify_logic_sdt_bbbp.py
-```
-
-#### B-1) Dynamic vs Static refinement 선택
-
-- **dynamic**: 실행할 때마다 refinements를 생성
-- **static**: 미리 추출해둔 refinements(JSON)를 로드해서 재사용
-
-Static 모드를 쓰려면 먼저 refinements를 추출해서 JSON을 만들어야 합니다.
-
-1) (한 번만) refinement 추출 + JSON 생성
-
-```bash
-python experiments/extract_dto_refinements.py --dataset bbbp --target p_np --limit 200
-```
-
-생성 파일:
-
-- `output/dto_refinements/bbbp/p_np.txt`
-- `output/dto_refinements/bbbp/p_np.json`
-
-2) Static 모드로 Logic SDT 실행
-
-```bash
-python verify_logic_sdt_bbbp.py --refinement-mode static --refinement-file output/dto_refinements/bbbp/p_np.json
-```
-
-### C) Semantic Random Forest (Logic SDT 배깅 앙상블)
-
-배깅(bootstrap aggregating)으로 Logic SDT 여러 개를 학습해 성능을 올리고 싶으면:
+### 1) BBBP 배깅 모델 실행 (여러 트리 학습)
 
 ```bash
 python experiments/verify_semantic_forest.py
 ```
 
-내부 구현은 `src/sdt/logic_forest.py`의 `SemanticRandomForest`이며, 각 트리는 `LogicSDTLearner`로 학습됩니다.
+실행 결과는 콘솔 로그로 출력되며, 요약 파일이 `forest_results.txt`로 저장됩니다.
 
-## Evaluation Metric
-- AUC-ROC (Area Under the ROC Curve)
+## 간단 설명
+
+- 입력: `data/` 아래 CSV (예: `data/bbbp/BBBP.csv`)
+- 처리: SMILES → 피처 추출(RDKit) → DTO 기반 온톨로지 인스턴스 생성 → 트리 다수 학습(배깅)
+- 평가: AUC-ROC, Accuracy

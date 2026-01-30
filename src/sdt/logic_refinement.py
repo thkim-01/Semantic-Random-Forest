@@ -1,7 +1,7 @@
+# flake8: noqa
 
 from typing import List, Tuple, Any, Set, Optional, Dict
 from owlready2 import *
-import itertools
 import json
 from pathlib import Path
 
@@ -149,13 +149,110 @@ class OntologyRefinementGenerator:
         # Safety knobs to avoid refinement explosion on large ontologies (e.g., DTO)
         self.max_qualification_concepts_per_property = 50
 
-    def generate_refinements(self, center_class, instances: List) -> List[OntologyRefinement]:
+        # Cache disjoint class pairs for conjunction filtering
+        self._disjoint_pairs = self._build_disjoint_pairs()
+
+    def _build_disjoint_pairs(self) -> Set[frozenset]:
+        pairs: Set[frozenset] = set()
+        try:
+            for dj in self.onto.disjoints():
+                entities = list(getattr(dj, 'entities', []) or [])
+                if len(entities) < 2:
+                    continue
+                for i in range(len(entities)):
+                    for j in range(i + 1, len(entities)):
+                        c1 = entities[i]
+                        c2 = entities[j]
+                        if (
+                            getattr(c1, 'name', None)
+                            and getattr(c2, 'name', None)
+                        ):
+                            pairs.add(frozenset((c1, c2)))
+        except Exception:
+            # Some ontologies may not expose disjoint axioms cleanly.
+            return set()
+        return pairs
+
+    def _is_applicable_domain(self, prop, center_class) -> bool:
+        """Return True if prop.domain matches center_class.
+
+        If domain is unspecified, we treat it as applicable.
+        """
+        domain = getattr(prop, 'domain', None) or []
+        if not domain:
+            return True
+        try:
+            center_anc = set(center_class.ancestors())
+        except Exception:
+            center_anc = {center_class}
+        for d in domain:
+            if d in center_anc:
+                return True
+        return False
+
+    def _is_used_by_instances(self, prop, instances: List) -> bool:
+        for inst in instances:
+            vals = getattr(inst, prop.name, [])
+            if vals:
+                return True
+        return False
+
+    def _get_relevant_object_properties(self, center_class, instances: List):
+        props = []
+        for prop in self.onto.object_properties():
+            if not self._is_applicable_domain(prop, center_class):
+                continue
+            # If domain is missing/loose, require it to be actually used.
+            if (
+                not (getattr(prop, 'domain', None) or [])
+                and not self._is_used_by_instances(prop, instances)
+            ):
+                continue
+            props.append(prop)
+        return props
+
+    def _get_relevant_data_properties(self, center_class, instances: List):
+        props = []
+        for prop in self.onto.data_properties():
+            if prop.name == 'hasLabel':
+                continue
+            if not self._is_applicable_domain(prop, center_class):
+                continue
+            if (
+                not (getattr(prop, 'domain', None) or [])
+                and not self._is_used_by_instances(prop, instances)
+            ):
+                continue
+            props.append(prop)
+        return props
+
+    def _concept_is_in_range(self, concept, range_classes: List) -> bool:
+        if not range_classes:
+            return True
+        try:
+            anc = set(concept.ancestors())
+        except Exception:
+            anc = {concept}
+        for r in range_classes:
+            if r in anc:
+                return True
+        return False
+
+    def generate_refinements(
+        self,
+        center_class,
+        instances: List,
+    ) -> List[OntologyRefinement]:
         """
         Generate all valid refinements for the given center class.
         """
-        # Static mode: reuse previously extracted refinements (still filter by instances)
+        # Static mode: reuse previously extracted refinements
+        # (still filter by current instances)
         if self.static_refinements is not None:
-            return self._filter_valid_refinements(self.static_refinements, instances)
+            return self._filter_valid_refinements(
+                self.static_refinements,
+                instances,
+            )
 
         refinements = []
         
@@ -165,25 +262,39 @@ class OntologyRefinementGenerator:
         
         # 2. Cardinality Restriction Refinement
         # Properties where domain is center_class (or superclass)
-        refinements.extend(self._generate_cardinality_refinements(center_class, instances))
+        refinements.extend(
+            self._generate_cardinality_refinements(center_class, instances)
+        )
 
         # 3. Domain Restriction Refinement (Data Properties)
-        refinements.extend(self._generate_domain_refinements(center_class, instances))
+        refinements.extend(
+            self._generate_domain_refinements(center_class, instances)
+        )
         
         # 4. Qualification Refinement
         # Object properties range subclasses
-        refinements.extend(self._generate_qualification_refinements(center_class, instances))
+        refinements.extend(
+            self._generate_qualification_refinements(center_class, instances)
+        )
         
         # 5. Conjunction Refinement
         # Intersection of non-disjoint subclasses
-        refinements.extend(self._generate_conjunction_refinements(center_class, instances))
+        refinements.extend(
+            self._generate_conjunction_refinements(center_class, instances)
+        )
         
         # Filter valid refinements (must split instances)
-        valid_refinements = self._filter_valid_refinements(refinements, instances)
+        valid_refinements = self._filter_valid_refinements(
+            refinements,
+            instances,
+        )
         
         return valid_refinements
 
-    def _generate_concept_refinements(self, center_class) -> List[OntologyRefinement]:
+    def _generate_concept_refinements(
+        self,
+        center_class,
+    ) -> List[OntologyRefinement]:
         refs = []
         try:
             for subclass in center_class.subclasses():
@@ -198,8 +309,8 @@ class OntologyRefinementGenerator:
         # Ideally, query ontology for properties with domain = center_class
         # For typical OWL, domain is loose, so we check all properties or manually defined ones.
         
-        # Hardcoded for now based on known ontology structure or iterate all ObjectProperties
-        target_props = list(self.onto.object_properties())
+        # Object properties relevant to center_class (prefer domain-based filtering)
+        target_props = self._get_relevant_object_properties(center_class, instances)
         
         for prop in target_props:
             # Check if property makes sense (e.g. hasSubstructure)
@@ -220,10 +331,9 @@ class OntologyRefinementGenerator:
     def _generate_domain_refinements(self, center_class, instances) -> List[OntologyRefinement]:
         # Data properties
         refs = []
-        target_props = list(self.onto.data_properties())
+        target_props = self._get_relevant_data_properties(center_class, instances)
         
         for prop in target_props:
-            if prop.name == 'hasLabel': continue
             
             # Collect values from instances
             values = []
@@ -259,9 +369,12 @@ class OntologyRefinementGenerator:
         """
         refs: List[OntologyRefinement] = []
 
-        target_props = list(self.onto.object_properties())
+        target_props = self._get_relevant_object_properties(center_class, instances)
         for prop in target_props:
             observed_concepts: Set[Any] = set()
+
+            # If range is defined, constrain concepts to be within range.
+            range_classes = list(getattr(prop, 'range', None) or [])
 
             for inst in instances:
                 related_objects = getattr(inst, prop.name, [])
@@ -282,8 +395,10 @@ class OntologyRefinementGenerator:
 
             # Bound per property to avoid combinatorial blow-up
             observed_concepts = {
-                c for c in observed_concepts
+                c
+                for c in observed_concepts
                 if getattr(c, 'name', None) not in (None, 'Thing')
+                and self._concept_is_in_range(c, range_classes)
             }
 
             if not observed_concepts:
@@ -304,36 +419,36 @@ class OntologyRefinementGenerator:
 
         return refs
 
-    def _generate_conjunction_refinements(self, center_class, instances) -> List[OntologyRefinement]:
+    def _generate_conjunction_refinements(
+        self,
+        center_class,
+        instances,
+    ) -> List[OntologyRefinement]:
         """
         Generate intersection of refinements.
-        Strategy: Combine Concept Refinements with Domain/Qualification Refinements.
-        This captures "Type AND Property" logic.
+        Strategy (paper-aligned): combine non-disjoint subclasses of center_class.
         """
         refs = []
-        
-        # 1. Get base refinements
+
         concepts = self._generate_concept_refinements(center_class)
-        qualifications = self._generate_qualification_refinements(center_class, instances)
-        
-        # For now, let's just combine Concept + Qualification (Structural Conjunction)
-        # e.g. IsA(Aromatic) AND Exists(hasSubstructure.Alcohol)
-        
-        if not concepts or not qualifications:
+        if len(concepts) < 2:
             return []
-            
-        # Limit combinations to avoid explosion (e.g. max 20)
-        combinations = list(itertools.product(concepts, qualifications))
-        
-        # Sample if too many
-        if len(combinations) > 20:
-            import random
-            combinations = random.sample(combinations, 20)
-            
-        for r1, r2 in combinations:
-            # Value stores the tuple of refinements
-            refs.append(OntologyRefinement('conjunction', value=(r1, r2)))
-            
+
+        # Cap to avoid explosion
+        concepts = concepts[:50]
+        for i in range(len(concepts)):
+            for j in range(i + 1, len(concepts)):
+                c1 = concepts[i].concept
+                c2 = concepts[j].concept
+                if frozenset((c1, c2)) in self._disjoint_pairs:
+                    continue
+                refs.append(
+                    OntologyRefinement(
+                        'conjunction',
+                        value=(concepts[i], concepts[j]),
+                    )
+                )
+
         return refs
 
     def _filter_valid_refinements(self, refinements, instances) -> List[OntologyRefinement]:

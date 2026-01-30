@@ -70,6 +70,7 @@ class LogicSDTLearner:
         verbose: bool = True,
         refinement_mode: str = 'dynamic',
         refinement_file: Optional[str] = None,
+        split_criterion: str = 'information_gain',
     ):
         self.onto_manager = ontology_manager
         self.max_depth = max_depth
@@ -80,6 +81,7 @@ class LogicSDTLearner:
 
         self.refinement_mode = refinement_mode
         self.refinement_file = refinement_file
+        self.split_criterion = split_criterion
 
         static_refs = None
         if refinement_mode == 'static':
@@ -162,7 +164,7 @@ class LogicSDTLearner:
 
         # Find best split
         best_refinement = None
-        best_gain = -1.0
+        best_score = -1.0
         best_sets = None
         
         for ref in candidate_refinements:
@@ -177,14 +179,14 @@ class LogicSDTLearner:
             ):
                 continue
                 
-            gain = self._calculate_information_gain(
-                node,
-                satisfying,
-                non_satisfying,
+            score = self._calculate_split_score(
+                parent_node=node,
+                left_inst=satisfying,
+                right_inst=non_satisfying,
             )
             
-            if gain > best_gain:
-                best_gain = gain
+            if score > best_score:
+                best_score = score
                 best_refinement = ref
                 best_sets = (satisfying, non_satisfying)
         
@@ -215,12 +217,115 @@ class LogicSDTLearner:
             # of type Concept.
             if best_refinement.ref_type == 'concept':
                 left_center = best_refinement.concept
+
+            # Search space expansion (paper behavior): if we split on an object
+            # property refinement, the satisfying branch moves the center class
+            # to the property's range class.
+            if best_refinement.ref_type in ('cardinality', 'qualification'):
+                left_center = self._get_object_property_range_center(
+                    best_refinement.property,
+                    satisfying,
+                    fallback=center_class,
+                )
                 
             self._build_tree(node.left_child, left_center)
             # Right child (non-satisfying) remains the parent center class
             self._build_tree(node.right_child, center_class)
         else:
             self._set_leaf(node)
+
+    def _get_object_property_range_center(
+        self,
+        property_name: Optional[str],
+        satisfying_instances: List,
+        fallback,
+    ):
+        """Resolve the range class for an object property.
+
+        Priority:
+        1) ontology ObjectProperty.range (first non-Thing)
+        2) infer from observed related object types in satisfying instances
+        3) fallback
+        """
+        if not property_name:
+            return fallback
+
+        prop = getattr(self.onto_manager.onto, property_name, None)
+        if prop is not None:
+            rng = getattr(prop, 'range', None) or []
+            for r in rng:
+                if getattr(r, 'name', None) and r.name != 'Thing':
+                    return r
+
+        # Fallback: infer from observed related object types
+        type_counts = {}
+        for inst in satisfying_instances:
+            related = getattr(inst, property_name, [])
+            for obj in related:
+                for t in getattr(obj, 'is_a', []):
+                    if getattr(t, 'name', None) and t.name != 'Thing':
+                        type_counts[t] = type_counts.get(t, 0) + 1
+
+        if type_counts:
+            return max(type_counts, key=type_counts.get)
+
+        return fallback
+
+    def _calculate_split_score(
+        self,
+        parent_node,
+        left_inst,
+        right_inst,
+    ) -> float:
+        """Choose split scoring: information gain or C4.5 gain ratio."""
+        if self.split_criterion in ('gain_ratio', 'c45_gain_ratio'):
+            return self._calculate_gain_ratio(
+                parent_node,
+                left_inst,
+                right_inst,
+            )
+        return self._calculate_information_gain(
+            parent_node,
+            left_inst,
+            right_inst,
+        )
+
+    def _calculate_gain_ratio(
+        self,
+        parent_node,
+        left_inst,
+        right_inst,
+    ) -> float:
+        """C4.5 gain ratio = information_gain / split_info."""
+        gain = self._calculate_information_gain(
+            parent_node,
+            left_inst,
+            right_inst,
+        )
+        if self.class_weights_dict:
+            n = self._get_total_weight(parent_node.instances)
+            n_left = self._get_total_weight(left_inst)
+            n_right = self._get_total_weight(right_inst)
+        else:
+            n = len(parent_node.instances)
+            n_left = len(left_inst)
+            n_right = len(right_inst)
+
+        if n <= 0:
+            return 0.0
+
+        p_left = n_left / n
+        p_right = n_right / n
+        split_info = 0.0
+        if p_left > 0:
+            split_info -= p_left * np.log2(p_left)
+        if p_right > 0:
+            split_info -= p_right * np.log2(p_right)
+
+        if split_info <= 0:
+            return 0.0
+
+        return gain / split_info
 
     def _split_instances(self, instances, refinement) -> Tuple[List, List]:
         satisfying = []
