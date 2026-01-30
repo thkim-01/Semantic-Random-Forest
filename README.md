@@ -1,4 +1,4 @@
-# Semantic Bagging Forest
+# Semantic Forest
 
 SMILES 기반 분자 구조를 **Drug Target Ontology (DTO)** 기반 온톨로지로 변환한 뒤,
 여러 개의 설명가능한 결정트리를 **배깅(bootstrap aggregating)** 으로 학습해 분류 성능을 높이는 모델입니다.
