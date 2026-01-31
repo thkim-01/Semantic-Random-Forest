@@ -1,0 +1,883 @@
+{
+  "metadata": {
+    "mode": "dataset",
+    "dataset": "bbbp",
+    "csv": "C:\\Users\\Administrator\\Desktop\\Semantic-Decision-Tree-AUC-ROC89-2\\data\\bbbp\\BBBP.csv",
+    "smiles_col": "smiles",
+    "target": "p_np",
+    "instances_used": 198
+  },
+  "refinements": [
+    {
+      "ref_type": "concept",
+      "property": null,
+      "operator": "is_a",
+      "value": null,
+      "concept_name": "AromaticMolecule",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+    },
+    {
+      "ref_type": "concept",
+      "property": null,
+      "operator": "is_a",
+      "value": null,
+      "concept_name": "NonAromaticMolecule",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 249.09699999999998
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 314.4380000000001
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 386.6210000000001
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 14.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 25.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 37.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 14.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 25.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 37.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 3.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 7.0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 10.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 3.75
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 7.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 11.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 6
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 6
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 7
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 8
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasAromaticity",
+      "operator": ">",
+      "value": false
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 1.203675
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 2.4112000000000005
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 3.929575000000003
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 40.3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 68.06
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 102.2525
+    },
+    {
+      "ref_type": "domain",
+      "property": "obeysLipinski",
+      "operator": ">",
+      "value": false
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMWCategory",
+      "operator": ">",
+      "value": "High"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMWCategory",
+      "operator": ">",
+      "value": "Low"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogPCategory",
+      "operator": ">",
+      "value": "Hydrophilic"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogPCategory",
+      "operator": ">",
+      "value": "Lipophilic"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSACategory",
+      "operator": ">",
+      "value": "High"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSACategory",
+      "operator": ">",
+      "value": "Low"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Alcohol",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Alcohol"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Amide",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amide"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Amine",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amine"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Carbonyl",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carbonyl"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Carboxyl",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carboxyl"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Ester",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ester"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Ether",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ether"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "FunctionalGroup",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#FunctionalGroup"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Halogen",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Halogen"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Nitro",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Nitro"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Substructure",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Substructure"
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "FunctionalGroup",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#FunctionalGroup"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "FunctionalGroup",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#FunctionalGroup"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Alcohol",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Alcohol"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Alcohol",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Alcohol"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Ether",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ether"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Ester",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ester"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Amide",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amide"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Substructure",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Substructure"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Carboxyl",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carboxyl"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Amide",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amide"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Substructure",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Substructure"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Halogen",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Halogen"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Amine",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amine"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Ester",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ester"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Amine",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amine"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Halogen",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Halogen"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Nitro",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Nitro"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "NonAromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Carboxyl",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carboxyl"
+        }
+      ]
+    },
+    {
+      "ref_type": "conjunction",
+      "property": null,
+      "operator": null,
+      "value": [
+        {
+          "ref_type": "concept",
+          "property": null,
+          "operator": "is_a",
+          "value": null,
+          "concept_name": "AromaticMolecule",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+        },
+        {
+          "ref_type": "qualification",
+          "property": "hasFunctionalGroupRel",
+          "operator": null,
+          "value": null,
+          "concept_name": "Ether",
+          "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ether"
+        }
+      ]
+    }
+  ]
+}

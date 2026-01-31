@@ -1,0 +1,498 @@
+{
+  "metadata": {
+    "mode": "dataset",
+    "dataset": "tox21",
+    "csv": "data\\tox21\\tox21.csv",
+    "smiles_col": "smiles",
+    "target": "SR-ARE",
+    "instances_used": 156
+  },
+  "refinements": [
+    {
+      "ref_type": "concept",
+      "property": null,
+      "operator": "is_a",
+      "value": null,
+      "concept_name": "AromaticMolecule",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#AromaticMolecule"
+    },
+    {
+      "ref_type": "concept",
+      "property": null,
+      "operator": "is_a",
+      "value": null,
+      "concept_name": "NonAromaticMolecule",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#NonAromaticMolecule"
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 6
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 7
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 8
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 10
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 12
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 14
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 15
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 16
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 18
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 20
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 21
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 24
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 25
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 28
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 30
+    },
+    {
+      "ref_type": "cardinality",
+      "property": "hasFunctionalGroupRel",
+      "operator": ">",
+      "value": 32
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 144.71999999999997
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 182.88649999999998
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMolecularWeight",
+      "operator": ">",
+      "value": 280.5235
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 10.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 18.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAtoms",
+      "operator": ">",
+      "value": 26.75
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 10.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 18.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHeavyAtoms",
+      "operator": ">",
+      "value": 26.75
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 3.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 7.0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRotatableBonds",
+      "operator": ">",
+      "value": 10.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 2.75
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 5.5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBA",
+      "operator": ">",
+      "value": 8.25
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumHBD",
+      "operator": ">",
+      "value": 5
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumRings",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 0
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 1
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 2
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 3
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasNumAromaticRings",
+      "operator": ">",
+      "value": 4
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasAromaticity",
+      "operator": ">",
+      "value": false
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 0.9446
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 2.1140000000000003
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogP",
+      "operator": ">",
+      "value": 3.309800000000002
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 36.010000000000005
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 56.245000000000005
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSA",
+      "operator": ">",
+      "value": 80.3625
+    },
+    {
+      "ref_type": "domain",
+      "property": "obeysLipinski",
+      "operator": ">",
+      "value": false
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMWCategory",
+      "operator": ">",
+      "value": "High"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasMWCategory",
+      "operator": ">",
+      "value": "Low"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogPCategory",
+      "operator": ">",
+      "value": "Hydrophilic"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasLogPCategory",
+      "operator": ">",
+      "value": "Lipophilic"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSACategory",
+      "operator": ">",
+      "value": "High"
+    },
+    {
+      "ref_type": "domain",
+      "property": "hasTPSACategory",
+      "operator": ">",
+      "value": "Low"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Alcohol",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Alcohol"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Amide",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amide"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Amine",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Amine"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Carbonyl",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carbonyl"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Carboxyl",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Carboxyl"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Ester",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ester"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Ether",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Ether"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "FunctionalGroup",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#FunctionalGroup"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Halogen",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Halogen"
+    },
+    {
+      "ref_type": "qualification",
+      "property": "hasFunctionalGroupRel",
+      "operator": null,
+      "value": null,
+      "concept_name": "Nitro",
+      "concept_iri": "http://www.drugtargetontology.org/dto/dto_complete.owl#Nitro"
+    }
+  ]
+}

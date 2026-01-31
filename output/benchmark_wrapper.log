@@ -1,0 +1,4 @@
+﻿Starting benchmark...
+Command: C:\Users\Administrator\Desktop\Semantic-Decision-Tree-AUC-ROC89-2\.venv\Scripts\python.exe C:\Users\Administrator\Desktop\Semantic-Decision-Tree-AUC-ROC89-2\experiments\verify_semantic_forest_multi.py --overwrite --all-tasks --sample-size 0 --n-estimators 5 --out C:\Users\Administrator\Desktop\Semantic-Decision-Tree-AUC-ROC89-2\output\semantic_forest_benchmark_full.csv --out-avg C:\Users\Administrator\Desktop\Semantic-Decision-Tree-AUC-ROC89-2\output\semantic_forest_benchmark_full_avg.csv
+Benchmark PID: 39696
+Benchmark launched (no commit/push).
